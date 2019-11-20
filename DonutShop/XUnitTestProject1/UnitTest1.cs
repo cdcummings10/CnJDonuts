@@ -15,6 +15,8 @@ namespace XUnitTestProject1
                 ID = 1,
                 Name = "Hoopty",
                 Description = "Boopty",
+                SKU = "123",
+                Price = 2.5m,
                 ImageUrl = "Swoopty",
                 Boozey = false,
                 CreamFilled = true
@@ -23,6 +25,8 @@ namespace XUnitTestProject1
             Assert.Equal(1, donut.ID);
             Assert.Equal("Hoopty", donut.Name);
             Assert.Equal("Boopty", donut.Description);
+            Assert.Equal("123", donut.SKU);
+            Assert.Equal(2.5m, donut.Price);
             Assert.Equal("Swoopty", donut.ImageUrl);
             Assert.False(donut.Boozey);
             Assert.True(donut.CreamFilled);

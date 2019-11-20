@@ -13,6 +13,8 @@ namespace DonutShop.Models
         public string ImageUrl { get; set; }
         public bool Boozey { get; set; }
         public bool CreamFilled { get; set; }
+        public string SKU { get; set; }
+        public decimal Price { get; set; }
 
     }
 }
