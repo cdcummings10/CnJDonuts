@@ -6,10 +6,10 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace DonutShop.Controllers
 {
-    public class HomeController : Controller
+    public class ProductController : Controller
     {
         /// <summary>
-        /// Start page and default landing page.
+        /// Default landing page for products.
         /// </summary>
         /// <returns></returns>
         public IActionResult Index()
