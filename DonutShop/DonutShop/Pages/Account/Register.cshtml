@@ -1,0 +1,32 @@
+﻿@page
+@model DonutShop.Pages.Account.RegisterModel
+@{
+    ViewData["Title"] = "Register";
+}
+
+<h1>Register</h1>
+
+<form method="post">
+    <label asp-for="UserInput.Email"></label>
+    <input asp-for="UserInput.Email" />
+
+    <label asp-for="UserInput.FirstName"></label>
+    <input asp-for="UserInput.FirstName" />
+
+    <label asp-for="UserInput.LastName"></label>
+    <input asp-for="UserInput.LastName" />
+
+    <label asp-for="UserInput.BirthDate"></label>
+    <input asp-for="UserInput.BirthDate" />
+
+    <label asp-for="UserInput.FavoriteDonut"></label>
+    <select asp-for="UserInput.FavoriteDonut" asp-items="@Html.GetEnumSelectList(typeof(DonutShop.Models.Donut))"></select>
+
+    <label asp-for="UserInput.Password"></label>
+    <input asp-for="UserInput.Password" />
+
+    <label asp-for="UserInput.ConfirmPassword"></label>
+    <input asp-for="UserInput.ConfirmPassword" />
+
+    <button type="submit">Register</button>
+</form>
