@@ -1,4 +1,7 @@
+using DonutShop.Data;
 using DonutShop.Models;
+using DonutShop.Models.Services;
+using Microsoft.EntityFrameworkCore;
 using System;
 using Xunit;
 
@@ -48,6 +51,37 @@ namespace XUnitTestProject1
             Assert.Equal(FaveDonut.Confetti, user.FavoriteDonut);
             Assert.Equal("hello", user.UserName);
             Assert.Equal("shup@shup.com", user.Email);
+        }
+        #endregion
+        #region DB testing
+        [Fact]
+        public async void TestDonutServiceCreateMethod()
+        {
+            DbContextOptions<InventoryDbContext> options = new DbContextOptionsBuilder<InventoryDbContext>()
+            .UseInMemoryDatabase("TestDonutServiceCreateMethod")
+            .Options;
+
+            using (InventoryDbContext context = new InventoryDbContext(options))
+            {
+                DonutService service = new DonutService(context);
+                Donut donut = new Donut()
+                {
+                    ID = 3,
+                    Name = "Joopty",
+                    Description = "Loopty",
+                    SKU = "456",
+                    Price = 5.5m,
+                    ImageUrl = "Koopty",
+                    Boozey = true,
+                    CreamFilled = true
+                };
+
+                await service.Create(donut);
+
+                Donut result = await context.Donuts.FirstOrDefaultAsync(x => x.ID == donut.ID);
+
+                Assert.Equal(result.ID, donut.ID);
+            }
         }
         #endregion
     }
