@@ -65,7 +65,7 @@ namespace DonutShop.Pages.Account
             [DataType(DataType.Date)]
             public DateTime BirthDate { get; set; }
             [Display(Name = "Favorite Donut")]
-            public Donut FavoriteDonut { get; set; }
+            public FaveDonut FavoriteDonut { get; set; }
             [Required]
             [DataType(DataType.Password)]
             [StringLength(50, ErrorMessage = "Your {0} must be between {2} and {1} characters.", MinimumLength = 6)]

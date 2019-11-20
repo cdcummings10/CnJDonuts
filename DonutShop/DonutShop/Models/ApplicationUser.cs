@@ -12,10 +12,10 @@ namespace DonutShop.Models
         public string FirstName { get; set; }
         public string LastName { get; set; }
         public DateTime BirthDate { get; set; }
-        public Donut FavoriteDonut { get; set; }
+        public FaveDonut FavoriteDonut { get; set; }
 
     }
-    public enum Donut
+    public enum FaveDonut
     {
         [Display(Name ="Cinnamon Whiskey Twist")]
         CinnamonWhiskeyTwist = 1,
