@@ -1,5 +1,10 @@
-﻿@{ 
+﻿@model IEnumerable<DonutShop.Models.Donut>
+@{ 
     Layout = "_Layout";
 }
 
 <h1>Index yo</h1>
+@foreach (var item in Model)
+{
+<img class="homeImage" src="~/assets/images/ChocolateCreamFilled.png" />
+}
