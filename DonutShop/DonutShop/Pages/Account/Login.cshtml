@@ -1,0 +1,21 @@
+﻿@page
+@model DonutShop.Pages.Account.LoginModel
+@{
+    ViewData["Title"] = "Login";
+}
+
+<h1>Login</h1>
+
+<form method="post">
+    <div asp-validation-summary="All"></div>
+    <label asp-for="UserInput.Email"></label>
+    <input asp-for="UserInput.Email" />
+    
+    <label asp-for="UserInput.Password"></label>
+    <input asp-for="UserInput.Password" />
+    
+    <label asp-for="UserInput.RememberMe"></label>
+    <input asp-for="UserInput.RememberMe" />
+
+    <button type="submit">Login</button>
+</form>
