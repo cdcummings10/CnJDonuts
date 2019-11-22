@@ -1,4 +1,8 @@
-﻿body {
+﻿/** {
+    outline: dashed grey 1px;
+}*/
+
+body {
     background-color: rgb(102,255,168);
     width: 960px;
     margin: auto;
@@ -19,6 +23,24 @@ nav a:hover {
     color: white;
 }
 
-.homeImage {
+.productImage {
     width: 200px;
+    margin: 5px auto;
+    display: block;
+}
+
+.displayDiv {
+
+}
+
+.displayDiv h6, .displayDiv p {
+    border-radius: 5px;
+    background-color:saddlebrown;
+    color: white;
+    text-align: center;
+    line-height: 50px;
+}
+
+.displayDiv h6 {
+    height: 50px;
 }
