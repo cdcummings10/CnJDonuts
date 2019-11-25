@@ -25,5 +25,11 @@ namespace DonutShop.Controllers
             return View(donuts);
         }
 
+        [HttpPost]
+        public IActionResult Index(int ID)
+        {
+            return Redirect($"~/product/details/{ID}");
+        }
+
     }
 }
