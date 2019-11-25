@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
+using System.Security.Claims;
 using System.Threading.Tasks;
 using DonutShop.Models;
 using Microsoft.AspNetCore.Identity;
@@ -27,7 +28,11 @@ namespace DonutShop.Pages.Account
         {
 
         }
-
+        /// <summary>
+        /// Takes the form populated property newUser and creates a new ApplicationUser. The user is added to the database
+        /// and is signed in. Claims are also added.
+        /// </summary>
+        /// <returns>If registration is successful, redirects to home index. If not, adds errors to page.</returns>
         public async Task<IActionResult> OnPost()
         {
             if (ModelState.IsValid)
@@ -44,7 +49,23 @@ namespace DonutShop.Pages.Account
                 var result = await _userManager.CreateAsync(newUser, UserInput.Password);
                 if (result.Succeeded)
                 {
+                    Claim name = new Claim("FirstName", newUser.FirstName);
+                    Claim birthDate = new Claim(
+                        ClaimTypes.DateOfBirth,
+                        new DateTime(newUser.BirthDate.Year, newUser.BirthDate.Month, newUser.BirthDate.Day).ToString("u"), 
+                        ClaimValueTypes.DateTime);
+                    Claim email = new Claim(ClaimTypes.Email, newUser.Email, ClaimValueTypes.Email);
+                    List<Claim> claims = new List<Claim> { name, birthDate, email };
+
+                    await _userManager.AddClaimsAsync(newUser, claims);
+
+                    await _signInManager.SignInAsync(newUser, isPersistent: false);
+
                     return RedirectToAction("Index", "Home");
+                }
+                foreach (var error in result.Errors)
+                {
+                    ModelState.AddModelError(string.Empty, error.Description);
                 }
             }
             return Page();

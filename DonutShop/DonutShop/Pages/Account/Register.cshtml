@@ -20,7 +20,7 @@
     <input asp-for="UserInput.BirthDate" />
 
     <label asp-for="UserInput.FavoriteDonut"></label>
-    <select asp-for="UserInput.FavoriteDonut" asp-items="@Html.GetEnumSelectList(typeof(DonutShop.Models.Donut))"></select>
+    <select asp-for="UserInput.FavoriteDonut" asp-items="@Html.GetEnumSelectList(typeof(DonutShop.Models.FaveDonut))"></select>
 
     <label asp-for="UserInput.Password"></label>
     <input asp-for="UserInput.Password" />
