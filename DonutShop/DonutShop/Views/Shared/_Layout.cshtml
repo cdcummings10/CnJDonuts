@@ -7,9 +7,16 @@
 <head>
     <meta name="viewport" content="width=device-width" />
     <title>@ViewBag.Title</title>
+    <link rel="stylesheet" href="~/css/Reset.css" />
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <link rel="stylesheet" href="~/css/style.css" />
 </head>
 <body>
     <header>
+        <nav class="nav nav-pills nav-justified">
+            <a class="nav-item nav-link" href="~/home">Home</a>
+            <a class="nav-item nav-link" href="~/product">Products</a>
+            <a class="nav-item nav-link" href="#">About Us</a>
         @if (SignInManager.IsSignedIn(User))
         {
             <h5>Welcome, @User.Claims.First(x => x.Type == "FirstName").Value ! Are you hungry?</h5>
@@ -22,6 +29,7 @@
             <a href="~/Account/Login">Login</a>
             <a href="~/Account/Register">Register</a>
         }
+        </nav>
     </header>
     <div>
         @RenderBody()
