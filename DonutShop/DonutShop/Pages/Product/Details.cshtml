@@ -1,0 +1,21 @@
+﻿@page "{id}"
+@model DonutShop.Pages.Product.DetailsModel
+@{
+    ViewData["Title"] = "Details";
+    Layout = "_Layout";
+}
+
+<h1>@Model.Donut.Name</h1>
+<div class="detailsDiv">
+    <img id="detailImage" src="@Model.Donut.ImageUrl" />
+    <h6>SKU: @Model.Donut.SKU</h6>
+    <h6>Price: $@Model.Donut.Price</h6>
+    <p>@Model.Donut.Description</p>
+    <form>
+        <button> Add to Cart</button>
+    </form>
+    <form method="get" asp-controller="product" asp-action="index">
+        <button href="~/product/">Back</button>
+    </form>
+</div>
+
