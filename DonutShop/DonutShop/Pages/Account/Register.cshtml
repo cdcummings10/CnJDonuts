@@ -6,27 +6,45 @@
 
 <h1>Register</h1>
 
-<form method="post">
-    <label asp-for="UserInput.Email"></label>
-    <input asp-for="UserInput.Email" />
+<form class="loginForm" method="post">
+    <div class="registerDiv">
+    <fieldset>
+        <label asp-for="UserInput.Email"></label>
+        <input asp-for="UserInput.Email" />
+    </fieldset>
 
-    <label asp-for="UserInput.FirstName"></label>
-    <input asp-for="UserInput.FirstName" />
+    <fieldset>
+        <label asp-for="UserInput.FirstName"></label>
+        <input asp-for="UserInput.FirstName" />
+    </fieldset>
 
-    <label asp-for="UserInput.LastName"></label>
-    <input asp-for="UserInput.LastName" />
+    <fieldset>
+        <label asp-for="UserInput.LastName"></label>
+        <input asp-for="UserInput.LastName" />
+    </fieldset>
+    
+    <fieldset>
+        <label asp-for="UserInput.BirthDate"></label>
+        <input asp-for="UserInput.BirthDate" />
+    </fieldset>
 
-    <label asp-for="UserInput.BirthDate"></label>
-    <input asp-for="UserInput.BirthDate" />
+    <fieldset>
+        <label asp-for="UserInput.FavoriteDonut"></label>
+        <select asp-for="UserInput.FavoriteDonut" asp-items="@Html.GetEnumSelectList(typeof(DonutShop.Models.FaveDonut))"></select>
+    </fieldset>
 
-    <label asp-for="UserInput.FavoriteDonut"></label>
-    <select asp-for="UserInput.FavoriteDonut" asp-items="@Html.GetEnumSelectList(typeof(DonutShop.Models.FaveDonut))"></select>
+    <fieldset>
+        <label asp-for="UserInput.Password"></label>
+        <input asp-for="UserInput.Password" />
+    </fieldset>
 
-    <label asp-for="UserInput.Password"></label>
-    <input asp-for="UserInput.Password" />
-
+    <fieldset>
     <label asp-for="UserInput.ConfirmPassword"></label>
     <input asp-for="UserInput.ConfirmPassword" />
+    </fieldset>
 
+    <fieldset>
     <button type="submit">Register</button>
+    </fieldset>
+    </div>
 </form>
