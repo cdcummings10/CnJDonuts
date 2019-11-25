@@ -36,11 +36,11 @@ namespace DonutShop
 
             string userConnectionString = Environment.IsDevelopment()
                 ? Configuration["ConnectionStrings:UserDefaultConnection"]
-                : Configuration["ConnectionStrings:DefaultConnection"];
+                : Configuration["ConnectionStrings:UserProductionConnection"];
             
             string inventoryConnectionString = Environment.IsDevelopment()
-                ? Configuration["ConnectionStrings:InventoryConnectionString"]
-                : Configuration["ConnectionStrings:DefaultConnection"];
+                ? Configuration["ConnectionStrings:InventoryDefaultConnection"]
+                : Configuration["ConnectionStrings:InventoryProductionConnection"];
 
             services.AddDbContext<UserDbContext>(options =>
             options.UseSqlServer(userConnectionString));
