@@ -25,6 +25,11 @@ namespace DonutShop.Controllers
             return View(donuts);
         }
 
+        /// <summary>
+        /// Takes in an ID sent from a front end form and redirects to a details page for the specific ID.
+        /// </summary>
+        /// <param name="ID">Takes in the ID of the product to be displayed.</param>
+        /// <returns>Redirects to product details of the ID.</returns>
         [HttpPost]
         public IActionResult Index(int ID)
         {

@@ -19,6 +19,10 @@ namespace DonutShop.Pages.Product
         {
             _context = context;
         }
+        /// <summary>
+        /// On load, takes in an ID and displays product details for the specific donut.
+        /// </summary>
+        /// <param name="id">Takes in the donut ID.</param>
         public async void OnGet(int id)
         {
             Donut = await _context.GetByID(id);
