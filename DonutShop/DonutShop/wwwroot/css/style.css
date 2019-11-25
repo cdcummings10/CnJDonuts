@@ -2,6 +2,15 @@
     outline: dashed grey 1px;
 }*/
 
+h1 {
+    display: block;
+    margin: 5px auto;
+    text-align: center;
+    color: white;
+    text-shadow: 2px 2px 2px #333;
+    font-size: 4em;
+}
+
 body {
     background-color: rgb(102,255,168);
     width: 960px;
@@ -43,4 +52,10 @@ nav a:hover {
 
 .displayDiv h6 {
     height: 50px;
+}
+
+.displayDiv form {
+    display: block;
+    margin: 0 auto 20px auto;
+    text-align: center;
 }
