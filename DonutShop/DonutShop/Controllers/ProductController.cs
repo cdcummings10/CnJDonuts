@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using DonutShop.Models;
 using DonutShop.Models.Interfaces;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace DonutShop.Controllers
@@ -36,5 +37,57 @@ namespace DonutShop.Controllers
             return Redirect($"~/product/details/{ID}");
         }
 
+
+        [Authorize(Policy = "AdminOnly")]
+        public async Task<IActionResult> Create()
+        {
+            return View();
+        }
+
+        [HttpPost]
+        [Authorize(Policy = "AdminOnly")]
+        public async Task<IActionResult> Create(Donut donut)
+        {
+            if (ModelState.IsValid)
+            {
+                await _context.Create(donut);
+                return Redirect($"~/product/details/{donut.ID}");
+            }
+            return View();
+        }
+
+
+        [Authorize(Policy = "AdminOnly")]
+        public async Task<IActionResult> Edit(int id)
+        {
+            Donut donut = await _context.GetByID(id);
+            return View(donut);
+        }
+        [Authorize(Policy = "AdminOnly")]
+        [HttpPost]
+        public async Task<IActionResult> Edit(Donut donut)
+        {
+            if (ModelState.IsValid)
+            {
+                await _context.Update(donut);
+                return Redirect($"~/product/details/{donut.ID}");
+            }
+            return View(donut);
+        }
+
+
+        [Authorize(Policy ="AdminOnly")]
+        public async Task<IActionResult> Delete(int id)
+        {
+            Donut donut = await _context.GetByID(id);
+            return View(donut);
+        }
+        [Authorize(Policy = "AdminOnly")]
+        [HttpPost]
+        public async Task<IActionResult> Delete(Donut donut)
+        {
+            await _context.Delete(donut.ID);
+            return RedirectToAction("Index");
+        }
     }
 }
