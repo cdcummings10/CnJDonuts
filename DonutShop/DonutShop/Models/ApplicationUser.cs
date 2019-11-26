@@ -37,4 +37,10 @@ namespace DonutShop.Models
         [Display(Name = "Vodka Cream Filled Confetti")]
         VodkaCreamFilledConfetti,
     }
+
+    public static class ApplicationRoles
+    {
+        public const string Member = "Member";
+        public const string Admin = "Administrator";
+    }
 }

@@ -41,6 +41,8 @@ a specific user database. On registration, claims for first name, birthdate
 and email are added. First name is captured for a personalized greeting. Age is captured to see if the member is over 21.
 Email is captured for email and access purposes.
 
+Admin roles are added through validation of email being @admin.com.
+
 ---
 
 ### Visuals
