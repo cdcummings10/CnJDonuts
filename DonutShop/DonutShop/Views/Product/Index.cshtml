@@ -1,18 +1,26 @@
 ﻿@model IEnumerable<DonutShop.Models.Donut>
+@using DonutShop.Models
 <h1>Our Donuts</h1>
 
 <div class="row">
     @foreach (var item in Model)
     {
-        
-            <div class="container col-4 displayDiv">
-                <img class="productImage" src="@item.ImageUrl" />
-                <h6>@item.Name <span>$@item.Price</span></h6>
-                <form asp-action="Index">
-                    <input type="hidden" asp-for="@Model.FirstOrDefault(x => x.ID == item.ID).ID" />
-                    <button type="submit">Details</button>
-                </form>
-            </div>
+
+        <div class="container col-4 displayDiv">
+            <img class="productImage" src="@item.ImageUrl" />
+            <h6>@item.Name <span>$@item.Price</span></h6>
+            <form asp-action="Index">
+                <input type="hidden" asp-for="@Model.FirstOrDefault(x => x.ID == item.ID).ID" />
+                <button type="submit">Details</button>
+            </form>
+        @if (User.IsInRole(ApplicationRoles.Admin))
+        {
+            <form method="get" asp-action="Edit">
+                <input type="hidden" asp-for="@Model.FirstOrDefault(x => x.ID == item.ID).ID" />
+                <button type="submit">Edit Product</button>
+            </form>
+        }
+        </div>
 
     }
 </div>

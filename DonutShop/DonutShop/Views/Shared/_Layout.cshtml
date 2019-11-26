@@ -20,6 +20,10 @@
             @if (SignInManager.IsSignedIn(User))
             {
                 <h5>Welcome, @User.Claims.First(x => x.Type == "FirstName").Value ! Are you hungry?</h5>
+                if (User.IsInRole(ApplicationRoles.Admin))
+                {
+                    <a href="~/Admin/portal">Admin Portal</a>
+                }
                 <form asp-page="/Account/Logout">
                     <button type="submit">Logout</button>
                 </form>

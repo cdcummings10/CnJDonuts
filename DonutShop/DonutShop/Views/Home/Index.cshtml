@@ -1,4 +1,5 @@
 ﻿@model IEnumerable<DonutShop.Models.Donut>
+@using DonutShop.Models
 @{
     Layout = "_Layout";
 }
@@ -44,3 +45,34 @@
         <span class="sr-only">Next</span>
     </a>
 </div>
+
+@if (User.IsInRole(ApplicationRoles.Admin))
+{
+    <h6>Welcome back!</h6>
+    <form method="get" asp-page="/Admin/Portal">
+        <button value="submit">Go to Admin Page</button>
+    </form>
+}
+else if (User.IsInRole(ApplicationRoles.Member))
+{
+    <h6>Welcome back!</h6>
+    <form method="get">
+        <button value="submit">View My Orders</button>
+    </form>
+    <form method="get" asp-controller="Product" asp-action="Index">
+        <button value="submit">Go to Products</button>
+    </form>
+}
+else
+{
+    <h6>Welcome!</h6>
+    <form method="get" asp-page="/Account/Login">
+        <button value="submit">Login</button>
+    </form>
+    <form method="get" asp-page="/Account/Register">
+        <button value="submit">Register New Account</button>
+    </form>
+    <form method="get" asp-controller="Product" asp-action="Index">
+        <button value="submit">Go to Products</button>
+    </form>
+}
