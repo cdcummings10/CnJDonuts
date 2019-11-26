@@ -53,6 +53,9 @@ namespace DonutShop
                     .AddDefaultTokenProviders();
 
             services.AddScoped<IInventory<Donut>, DonutService>();
+
+            services.AddAuthorization(options =>
+            options.AddPolicy("AdminOnly", policy => policy.RequireRole(ApplicationRoles.Admin)));
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -65,6 +68,7 @@ namespace DonutShop
 
             app.UseRouting();
             app.UseAuthentication();
+            app.UseAuthorization();
             app.UseStaticFiles();
 
             app.UseEndpoints(endpoints =>
