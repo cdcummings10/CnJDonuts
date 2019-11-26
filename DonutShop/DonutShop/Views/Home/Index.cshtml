@@ -1,3 +1,46 @@
-﻿
+﻿@model IEnumerable<DonutShop.Models.Donut>
+@{
+    Layout = "_Layout";
+}
 
-<h1>Index yo</h1>
+<h1>Welcome to C&J Donuts!</h1>
+
+@*Taken from bootstrap docs https://getbootstrap.com/docs/4.0/components/carousel/*@
+<div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel">
+    <ol class="carousel-indicators">
+        <li data-target="#carouselExampleIndicators" data-slide-to="0" class="active"></li>
+        <li data-target="#carouselExampleIndicators" data-slide-to="1"></li>
+        <li data-target="#carouselExampleIndicators" data-slide-to="2"></li>
+    </ol>
+    <div class="carousel-inner">
+        <div class="carousel-item active">
+            <img src="@Model.FirstOrDefault(x => x.ID == 1).ImageUrl" alt="...">
+            <div class="carousel-caption d-none d-md-block">
+                <h5>@Model.FirstOrDefault(x => x.ID == 1).Name</h5>
+                <p>@Model.FirstOrDefault(x => x.ID == 1).Description</p>
+            </div>
+        </div>
+        <div class="carousel-item">
+            <img src="@Model.FirstOrDefault(x => x.ID == 3).ImageUrl" alt="...">
+            <div class="carousel-caption d-none d-md-block">
+                <h5>@Model.FirstOrDefault(x => x.ID == 3).Name</h5>
+                <p>@Model.FirstOrDefault(x => x.ID == 3).Description</p>
+            </div>
+        </div>
+        <div class="carousel-item">
+            <img src="@Model.FirstOrDefault(x => x.ID == 7).ImageUrl" alt="...">
+            <div class="carousel-caption d-none d-md-block">
+                <h5>@Model.FirstOrDefault(x => x.ID == 7).Name</h5>
+                <p>@Model.FirstOrDefault(x => x.ID == 7).Description</p>
+            </div>
+        </div>
+    </div>
+    <a class="carousel-control-prev" href="#carouselExampleIndicators" role="button" data-slide="prev">
+        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+        <span class="sr-only">Previous</span>
+    </a>
+    <a class="carousel-control-next" href="#carouselExampleIndicators" role="button" data-slide="next">
+        <span class="carousel-control-next-icon" aria-hidden="true"></span>
+        <span class="sr-only">Next</span>
+    </a>
+</div>

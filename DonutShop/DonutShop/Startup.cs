@@ -4,6 +4,8 @@ using System.Linq;
 using System.Threading.Tasks;
 using DonutShop.Data;
 using DonutShop.Models;
+using DonutShop.Models.Interfaces;
+using DonutShop.Models.Services;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
@@ -34,11 +36,11 @@ namespace DonutShop
 
             string userConnectionString = Environment.IsDevelopment()
                 ? Configuration["ConnectionStrings:UserDefaultConnection"]
-                : Configuration["ConnectionStrings:DefaultConnection"];
+                : Configuration["ConnectionStrings:UserProductionConnection"];
             
             string inventoryConnectionString = Environment.IsDevelopment()
-                ? Configuration["ConnectionStrings:InventoryConnectionString"]
-                : Configuration["ConnectionStrings:DefaultConnection"];
+                ? Configuration["ConnectionStrings:InventoryDefaultConnection"]
+                : Configuration["ConnectionStrings:InventoryProductionConnection"];
 
             services.AddDbContext<UserDbContext>(options =>
             options.UseSqlServer(userConnectionString));
@@ -49,6 +51,8 @@ namespace DonutShop
             services.AddIdentity<ApplicationUser, IdentityRole>()
                     .AddEntityFrameworkStores<UserDbContext>()
                     .AddDefaultTokenProviders();
+
+            services.AddScoped<IInventory<Donut>, DonutService>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
