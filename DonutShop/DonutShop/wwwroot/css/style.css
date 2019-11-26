@@ -106,3 +106,8 @@ nav a:hover {
     width: 400px;
     margin: 0 auto;
 }
+
+.card {
+    display: inline-block;
+    margin: 0 20px;
+}
