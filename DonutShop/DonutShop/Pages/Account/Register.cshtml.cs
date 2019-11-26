@@ -8,6 +8,7 @@ using DonutShop.Models;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
+using Microsoft.Extensions.Configuration;
 
 namespace DonutShop.Pages.Account
 {
@@ -16,13 +17,15 @@ namespace DonutShop.Pages.Account
         private UserManager<ApplicationUser> _userManager;
         private SignInManager<ApplicationUser> _signInManager;
 
+        public IConfiguration Configuration { get; private set; }
         [BindProperty]
         public UserRegistration UserInput { get; set; }
 
-        public RegisterModel(UserManager<ApplicationUser> userManager, SignInManager<ApplicationUser> signInManager)
+        public RegisterModel(UserManager<ApplicationUser> userManager, SignInManager<ApplicationUser> signInManager, IConfiguration configuration)
         {
             _userManager = userManager;
             _signInManager = signInManager;
+            Configuration = configuration;
         }
         public void OnGet()
         {
@@ -56,6 +59,13 @@ namespace DonutShop.Pages.Account
                         ClaimValueTypes.DateTime);
                     Claim email = new Claim(ClaimTypes.Email, newUser.Email, ClaimValueTypes.Email);
                     List<Claim> claims = new List<Claim> { name, birthDate, email };
+
+                    if(UserInput.Email.Contains(Configuration["AdminEmail"]))
+                    {
+                        await _userManager.AddToRoleAsync(newUser, ApplicationRoles.Admin);
+                    }
+
+                    await _userManager.AddToRoleAsync(newUser, ApplicationRoles.Member);
 
                     await _userManager.AddClaimsAsync(newUser, claims);
 

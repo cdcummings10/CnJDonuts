@@ -8,43 +8,44 @@
 
 <form class="loginForm" method="post">
     <div class="registerDiv">
-    <fieldset>
-        <label asp-for="UserInput.Email"></label>
-        <input asp-for="UserInput.Email" />
-    </fieldset>
+        <div asp-validation-summary="All"></div>
+        <fieldset>
+            <label asp-for="UserInput.Email"></label>
+            <input asp-for="UserInput.Email" />
+        </fieldset>
 
-    <fieldset>
-        <label asp-for="UserInput.FirstName"></label>
-        <input asp-for="UserInput.FirstName" />
-    </fieldset>
+        <fieldset>
+            <label asp-for="UserInput.FirstName"></label>
+            <input asp-for="UserInput.FirstName" />
+        </fieldset>
 
-    <fieldset>
-        <label asp-for="UserInput.LastName"></label>
-        <input asp-for="UserInput.LastName" />
-    </fieldset>
-    
-    <fieldset>
-        <label asp-for="UserInput.BirthDate"></label>
-        <input asp-for="UserInput.BirthDate" />
-    </fieldset>
+        <fieldset>
+            <label asp-for="UserInput.LastName"></label>
+            <input asp-for="UserInput.LastName" />
+        </fieldset>
 
-    <fieldset>
-        <label asp-for="UserInput.FavoriteDonut"></label>
-        <select asp-for="UserInput.FavoriteDonut" asp-items="@Html.GetEnumSelectList(typeof(DonutShop.Models.FaveDonut))"></select>
-    </fieldset>
+        <fieldset>
+            <label asp-for="UserInput.BirthDate"></label>
+            <input asp-for="UserInput.BirthDate" />
+        </fieldset>
 
-    <fieldset>
-        <label asp-for="UserInput.Password"></label>
-        <input asp-for="UserInput.Password" />
-    </fieldset>
+        <fieldset>
+            <label asp-for="UserInput.FavoriteDonut"></label>
+            <select asp-for="UserInput.FavoriteDonut" asp-items="@Html.GetEnumSelectList(typeof(DonutShop.Models.FaveDonut))"></select>
+        </fieldset>
 
-    <fieldset>
-    <label asp-for="UserInput.ConfirmPassword"></label>
-    <input asp-for="UserInput.ConfirmPassword" />
-    </fieldset>
+        <fieldset>
+            <label asp-for="UserInput.Password"></label>
+            <input asp-for="UserInput.Password" />
+        </fieldset>
 
-    <fieldset>
-    <button type="submit">Register</button>
-    </fieldset>
+        <fieldset>
+            <label asp-for="UserInput.ConfirmPassword"></label>
+            <input asp-for="UserInput.ConfirmPassword" />
+        </fieldset>
+
+        <fieldset>
+            <button type="submit">Register</button>
+        </fieldset>
     </div>
 </form>
