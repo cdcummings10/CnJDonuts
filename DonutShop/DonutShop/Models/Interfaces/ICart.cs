@@ -5,12 +5,13 @@ using System.Threading.Tasks;
 
 namespace DonutShop.Models.Interfaces
 {
-    interface ICart
+    public interface ICart
     {
+        public Task GenerateCart(Cart cart);
         public Task AddToCart(CartItem item);
         public Task RemoveFromCart(int id);
         public Task UpdateQuantity(CartItem item);
         public Task<CartItem> GetCartItem(int id);
-        public Task<IEnumerable<CartItem>> GetCartItems();
+        public Task<IEnumerable<CartItem>> GetCartItems(string email);
     }
 }

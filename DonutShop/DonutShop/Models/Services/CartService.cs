@@ -23,14 +23,29 @@ namespace DonutShop.Models.Services
 
         }
 
+        public async Task GenerateCart(Cart cart)
+        {
+            await _context.AddAsync(cart);
+            await _context.SaveChangesAsync();
+        }
+
         public async Task<CartItem> GetCartItem(int id)
         {
             return await _context.CartItems.FirstOrDefaultAsync(x => x.ID == id);
         }
 
-        public async Task<IEnumerable<CartItem>> GetCartItems()
+        public async Task<IEnumerable<CartItem>> GetCartItems(string email)
         {
-            return await _context.CartItems.ToListAsync();
+            int cartID = (await _context.Carts.FirstOrDefaultAsync(x => x.UserEmail == email)).ID;
+
+            if (cartID <= 0)
+            {
+                return null;
+            }
+            
+            return await _context.CartItems.Where(x => x.CartID == cartID)
+                .Include(x => x.Donut)
+                .ToListAsync();
         }
 
         public async Task RemoveFromCart(int id)

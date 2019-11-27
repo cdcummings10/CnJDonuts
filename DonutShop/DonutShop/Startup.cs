@@ -53,6 +53,7 @@ namespace DonutShop
                     .AddDefaultTokenProviders();
 
             services.AddScoped<IInventory<Donut>, DonutService>();
+            services.AddScoped<ICart, CartService>();
 
             services.AddAuthorization(options =>
             options.AddPolicy("AdminOnly", policy => policy.RequireRole(ApplicationRoles.Admin)));
