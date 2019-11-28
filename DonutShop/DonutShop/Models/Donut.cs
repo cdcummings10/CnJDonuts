@@ -16,5 +16,8 @@ namespace DonutShop.Models
         public string SKU { get; set; }
         public decimal Price { get; set; }
 
+        //Navigation properties
+        public CartItem CartItem { get; set; }
+
     }
 }

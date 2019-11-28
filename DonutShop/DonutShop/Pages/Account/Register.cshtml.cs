@@ -5,6 +5,7 @@ using System.Linq;
 using System.Security.Claims;
 using System.Threading.Tasks;
 using DonutShop.Models;
+using DonutShop.Models.Interfaces;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
@@ -16,15 +17,18 @@ namespace DonutShop.Pages.Account
     {
         private UserManager<ApplicationUser> _userManager;
         private SignInManager<ApplicationUser> _signInManager;
+        private ICart _cartManager;
 
         public IConfiguration Configuration { get; private set; }
         [BindProperty]
         public UserRegistration UserInput { get; set; }
 
-        public RegisterModel(UserManager<ApplicationUser> userManager, SignInManager<ApplicationUser> signInManager, IConfiguration configuration)
+        public RegisterModel(UserManager<ApplicationUser> userManager, SignInManager<ApplicationUser> signInManager,
+            IConfiguration configuration, ICart cartManager)
         {
             _userManager = userManager;
             _signInManager = signInManager;
+            _cartManager = cartManager;
             Configuration = configuration;
         }
         public void OnGet()
@@ -70,6 +74,9 @@ namespace DonutShop.Pages.Account
                     await _userManager.AddClaimsAsync(newUser, claims);
 
                     await _signInManager.SignInAsync(newUser, isPersistent: false);
+
+                    Cart cart = new Cart() { UserEmail = UserInput.Email };
+                    await _cartManager.GenerateCart(cart);
 
                     return RedirectToAction("Index", "Home");
                 }
