@@ -1,0 +1,34 @@
+﻿@model IEnumerable<DonutShop.Models.CartItem>
+@using DonutShop.Models
+
+<div class="container">
+    <h4>Your Cart:</h4>
+    @if (Model != null)
+    {
+        @foreach (var item in Model)
+        {
+            decimal totalPrice = item.Donut.Price * item.Quantity;
+            <h5>@item.Donut.Name</h5>
+            <img src="@item.Donut.ImageUrl" />
+            <p>Price per Donut: $@item.Donut.Price</p>
+            <p>Price for All: $@totalPrice</p>
+            <p>Quantity = @item.Quantity</p>
+
+        }
+    }
+    else
+    {
+        <h4>You have nothing in your cart!</h4>
+        if (!User.IsInRole(ApplicationRoles.Member))
+        {
+            <p>Please register or login to access your cart!</p>
+            <form method="get" asp-page="/Account/Login">
+                <button value="submit">Login</button>
+            </form>
+            <form method="get" asp-page="/Account/Register">
+                <button value="submit">Register New Account</button>
+            </form>
+        }
+    }
+
+</div>

@@ -19,3 +19,7 @@
     </form>
 </div>
 
+<div class="clearfix"></div>
+
+@await Component.InvokeAsync("MiniCart", User.Claims.FirstOrDefault(x => x.Type == ClaimValueTypes.Email).Value)
+
