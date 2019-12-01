@@ -107,9 +107,8 @@ nav {
     margin: 0 auto;
 }
 
-/*
-.card {
-    display: inline-block;
-    margin: 0 20px;
+.clearfix::after {
+    content: "";
+    clear: both;
+    display: table;
 }
-*/
