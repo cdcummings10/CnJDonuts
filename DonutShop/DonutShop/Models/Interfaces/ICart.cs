@@ -13,5 +13,6 @@ namespace DonutShop.Models.Interfaces
         public Task UpdateQuantity(CartItem item);
         public Task<CartItem> GetCartItem(int id);
         public Task<IEnumerable<CartItem>> GetCartItems(string email);
+        Task<int> GetCartIDByEmail(string email);
     }
 }
