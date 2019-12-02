@@ -1,5 +1,6 @@
 ﻿@page "{id}"
 @model DonutShop.Pages.Product.DetailsModel
+@using System.Security.Claims
 @{
     ViewData["Title"] = "Details";
     Layout = "_Layout";
@@ -11,7 +12,11 @@
     <h6>SKU: @Model.Donut.SKU</h6>
     <h6>Price: $@Model.Donut.Price</h6>
     <p>@Model.Donut.Description</p>
-    <form>
+    <form asp-action="AddToCart" asp-controller="product">
+        <input type="hidden" asp-for="User.Claims.FirstOrDefault(x => x.Type == ClaimValueTypes.Email).Value" />
+        <input type="hidden" asp-for="@Model.Donut.ID" name="donutID"/>
+        <label>Quantity:</label>
+        <input type="number" name="quantity" />
         <button> Add to Cart</button>
     </form>
     <form method="get" asp-controller="product" asp-action="index">

@@ -11,10 +11,12 @@ namespace DonutShop.Controllers
 {
     public class ProductController : Controller
     {
-        private IInventory<Donut> _context { get; set; }
-        public ProductController(IInventory<Donut> context)
+        private ICart _cart;
+        private IInventory<Donut> _inventory { get; set; }
+        public ProductController(IInventory<Donut> context, ICart cart)
         {
-            _context = context;
+            _inventory = context;
+            _cart = cart;
         }
         /// <summary>
         /// Default landing page for products.
@@ -22,7 +24,7 @@ namespace DonutShop.Controllers
         /// <returns></returns>
         public async Task<IActionResult> Index()
         {
-            var donuts = await _context.GetAll();
+            var donuts = await _inventory.GetAll();
             return View(donuts);
         }
 
@@ -50,7 +52,7 @@ namespace DonutShop.Controllers
         {
             if (ModelState.IsValid)
             {
-                await _context.Create(donut);
+                await _inventory.Create(donut);
                 return Redirect($"~/product/details/{donut.ID}");
             }
             return View();
@@ -60,7 +62,7 @@ namespace DonutShop.Controllers
         [Authorize(Policy = "AdminOnly")]
         public async Task<IActionResult> Edit(int id)
         {
-            Donut donut = await _context.GetByID(id);
+            Donut donut = await _inventory.GetByID(id);
             return View(donut);
         }
         [Authorize(Policy = "AdminOnly")]
@@ -69,7 +71,7 @@ namespace DonutShop.Controllers
         {
             if (ModelState.IsValid)
             {
-                await _context.Update(donut);
+                await _inventory.Update(donut);
                 return Redirect($"~/product/details/{donut.ID}");
             }
             return View(donut);
@@ -79,15 +81,30 @@ namespace DonutShop.Controllers
         [Authorize(Policy ="AdminOnly")]
         public async Task<IActionResult> Delete(int id)
         {
-            Donut donut = await _context.GetByID(id);
+            Donut donut = await _inventory.GetByID(id);
             return View(donut);
         }
         [Authorize(Policy = "AdminOnly")]
         [HttpPost]
         public async Task<IActionResult> Delete(Donut donut)
         {
-            await _context.Delete(donut.ID);
+            await _inventory.Delete(donut.ID);
             return RedirectToAction("Index");
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> AddToCart(string Value, int donutID, int quantity)
+        {
+            int cartID = await _cart.GetCartIDByEmail(Value);
+            CartItem cartItem = new CartItem()
+            {
+                CartID = cartID,
+                DonutID = donutID,
+                Quantity = quantity
+            };
+            await _cart.AddToCart(cartItem);
+
+            return Redirect("~/account/mycart");
         }
     }
 }

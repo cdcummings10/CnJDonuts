@@ -36,13 +36,13 @@ namespace DonutShop.Models.Services
 
         public async Task<IEnumerable<CartItem>> GetCartItems(string email)
         {
-            int cartID = (await _context.Carts.FirstOrDefaultAsync(x => x.UserEmail == email)).ID;
+            int cartID = await GetCartIDByEmail(email);
 
             if (cartID <= 0)
             {
                 return null;
             }
-            
+
             return await _context.CartItems.Where(x => x.CartID == cartID)
                 .Include(x => x.Donut)
                 .ToListAsync();
@@ -59,6 +59,12 @@ namespace DonutShop.Models.Services
         {
             _context.Update(item);
             await _context.SaveChangesAsync();
+        }
+
+        public async Task<int> GetCartIDByEmail(string email)
+        {
+            int cartID = (await _context.Carts.FirstOrDefaultAsync(x => x.UserEmail == email)).ID;
+            return cartID;
         }
     }
 }
