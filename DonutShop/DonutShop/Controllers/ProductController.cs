@@ -39,13 +39,19 @@ namespace DonutShop.Controllers
             return Redirect($"~/product/details/{ID}");
         }
 
-
+        /// <summary>
+        /// Shows the creation of a new product screen.
+        /// </summary>
         [Authorize(Policy = "AdminOnly")]
         public async Task<IActionResult> Create()
         {
             return View();
         }
-
+        /// <summary>
+        /// Taks in a donut item and adds the donut to the inventory database.
+        /// </summary>
+        /// <param name="donut">Takes in a new donut object</param>
+        /// <returns>Returns to the detail page of the new donut.</returns>
         [HttpPost]
         [Authorize(Policy = "AdminOnly")]
         public async Task<IActionResult> Create(Donut donut)
@@ -58,13 +64,21 @@ namespace DonutShop.Controllers
             return View();
         }
 
-
+        /// <summary>
+        /// Redirects to the edit page, by taking in an ID.
+        /// </summary>
+        /// <param name="id">Takes in the database ID of the donut selected.</param>
         [Authorize(Policy = "AdminOnly")]
         public async Task<IActionResult> Edit(int id)
         {
             Donut donut = await _inventory.GetByID(id);
             return View(donut);
         }
+        /// <summary>
+        /// Takes in a donut that has been editted and updated the database.
+        /// </summary>
+        /// <param name="donut">Takes in an editted donut.</param>
+        /// <returns>On successful edit, returns to the details page of the editted donut.</returns>
         [Authorize(Policy = "AdminOnly")]
         [HttpPost]
         public async Task<IActionResult> Edit(Donut donut)
@@ -77,13 +91,21 @@ namespace DonutShop.Controllers
             return View(donut);
         }
 
-
+        /// <summary>
+        /// Shows the deletion confirmation screen.
+        /// </summary>
+        /// <param name="id">Takes in the donut's database ID that needs to be deleted.</param>
         [Authorize(Policy ="AdminOnly")]
         public async Task<IActionResult> Delete(int id)
         {
             Donut donut = await _inventory.GetByID(id);
             return View(donut);
         }
+        /// <summary>
+        /// Takes in a donut and deletes it from the database.
+        /// </summary>
+        /// <param name="donut">Takes in the donut to be deleted.</param>
+        /// <returns>Redirects the user back to the index.</returns>
         [Authorize(Policy = "AdminOnly")]
         [HttpPost]
         public async Task<IActionResult> Delete(Donut donut)
@@ -91,7 +113,13 @@ namespace DonutShop.Controllers
             await _inventory.Delete(donut.ID);
             return RedirectToAction("Index");
         }
-
+        /// <summary>
+        /// Takes in a email, an ID of a donut and the quantity. Creates a new cartitem and adds it to the user's cart.
+        /// </summary>
+        /// <param name="Value">Takes in the email claim as a string of the user.</param>
+        /// <param name="donutID">Takes in the int ID of the donut to be added.</param>
+        /// <param name="quantity">Takes in the quantity of the donuts to be added.</param>
+        /// <returns>Redirects to the user's cart upon successful addition.</returns>
         [HttpPost]
         public async Task<IActionResult> AddToCart(string Value, int donutID, int quantity)
         {
