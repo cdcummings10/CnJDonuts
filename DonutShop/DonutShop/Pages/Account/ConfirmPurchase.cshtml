@@ -1,0 +1,15 @@
+﻿@page
+@model DonutShop.Pages.Account.ConfirmPurchaseModel
+@using System.Security.Claims
+@{
+    ViewData["Title"] = "ConfirmPurchase";
+}
+
+<h1>Confirm Purchase</h1>
+
+@await Component.InvokeAsync("MiniCart", User.Claims.FirstOrDefault(x => x.Type == ClaimValueTypes.Email).Value)
+
+<h6>Would you like to place this order?</h6>
+<form method="post">
+    <button type="submit">Place Order</button>
+</form>

@@ -3,16 +3,14 @@ using DonutShop.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
-using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
-namespace DonutShop.Migrations.InventoryDb
+namespace DonutShop.Migrations
 {
     [DbContext(typeof(InventoryDbContext))]
-    [Migration("20191127214605_addedCart")]
-    partial class addedCart
+    partial class InventoryDbContextModelSnapshot : ModelSnapshot
     {
-        protected override void BuildTargetModel(ModelBuilder modelBuilder)
+        protected override void BuildModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -37,19 +35,23 @@ namespace DonutShop.Migrations.InventoryDb
 
             modelBuilder.Entity("DonutShop.Models.CartItem", b =>
                 {
+                    b.Property<int>("ID")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
                     b.Property<int>("CartID")
                         .HasColumnType("int");
 
                     b.Property<int>("DonutID")
                         .HasColumnType("int");
 
-                    b.Property<int>("ID")
-                        .HasColumnType("int");
-
                     b.Property<int>("Quantity")
                         .HasColumnType("int");
 
-                    b.HasKey("CartID", "DonutID");
+                    b.HasKey("ID");
+
+                    b.HasIndex("CartID");
 
                     b.HasIndex("DonutID")
                         .IsUnique();
@@ -202,6 +204,39 @@ namespace DonutShop.Migrations.InventoryDb
                         });
                 });
 
+            modelBuilder.Entity("DonutShop.Models.Order", b =>
+                {
+                    b.Property<int>("ID")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<string>("Email")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("ID");
+
+                    b.ToTable("Orders");
+                });
+
+            modelBuilder.Entity("DonutShop.Models.OrderItem", b =>
+                {
+                    b.Property<int>("OrderID")
+                        .HasColumnType("int");
+
+                    b.Property<int>("DonutID")
+                        .HasColumnType("int");
+
+                    b.Property<int>("Quantity")
+                        .HasColumnType("int");
+
+                    b.HasKey("OrderID", "DonutID");
+
+                    b.HasIndex("DonutID");
+
+                    b.ToTable("OrderItems");
+                });
+
             modelBuilder.Entity("DonutShop.Models.CartItem", b =>
                 {
                     b.HasOne("DonutShop.Models.Cart", "Cart")
@@ -213,6 +248,21 @@ namespace DonutShop.Migrations.InventoryDb
                     b.HasOne("DonutShop.Models.Donut", "Donut")
                         .WithOne("CartItem")
                         .HasForeignKey("DonutShop.Models.CartItem", "DonutID")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+                });
+
+            modelBuilder.Entity("DonutShop.Models.OrderItem", b =>
+                {
+                    b.HasOne("DonutShop.Models.Donut", "Donut")
+                        .WithMany()
+                        .HasForeignKey("DonutID")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("DonutShop.Models.Order", "Order")
+                        .WithMany("OrderItems")
+                        .HasForeignKey("OrderID")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
                 });
