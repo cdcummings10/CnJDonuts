@@ -19,12 +19,6 @@ namespace DonutShop.Data
         /// <param name="builder"></param>
         protected override void OnModelCreating(ModelBuilder builder)
         {
-            builder.Entity<CartItem>().HasKey(cartItem =>
-            new
-            {
-                cartItem.CartID,
-                cartItem.DonutID
-            });
 
             builder.Entity<Donut>().HasData(
                 new Donut

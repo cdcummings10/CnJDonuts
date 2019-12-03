@@ -56,7 +56,7 @@
 else if (User.IsInRole(ApplicationRoles.Member))
 {
     <h6>Welcome back!</h6>
-    <form method="get">
+    <form method="get" asp-page="/Account/MyCart">
         <button value="submit">View My Orders</button>
     </form>
     <form method="get" asp-controller="Product" asp-action="Index">

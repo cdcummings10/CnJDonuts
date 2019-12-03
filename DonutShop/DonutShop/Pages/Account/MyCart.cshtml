@@ -3,14 +3,22 @@
 @using DonutShop.Models
 @{
     ViewData["Title"] = "MyCart";
+    decimal grandTotal = 0;
 }
 
 <h1>MyCart</h1>
+<form method="get" asp-page="/Account/ConfirmPurchase">
+    <button>Purchase Order</button>
+</form>
 @if (Model.Cart != null)
 {
+    <form method="get" asp-page="/Account/ConfirmPurchase">
+        <button>Purchase Order</button>
+    </form>
     @foreach (var item in Model.Cart)
     {
         decimal totalPrice = item.Donut.Price * item.Quantity;
+        grandTotal += totalPrice;
         <h5>@item.Donut.Name</h5>
         <img src="@item.Donut.ImageUrl" />
         <p>Price per Donut: $@item.Donut.Price</p>
@@ -18,6 +26,11 @@
         <p>Quantity = @item.Quantity</p>
 
     }
+
+    <h4>Total: $@grandTotal</h4>
+    <form method="get" asp-page="/Account/ConfirmPurchase">
+        <button>Purchase Order</button>
+    </form>
 }
 else
 {
