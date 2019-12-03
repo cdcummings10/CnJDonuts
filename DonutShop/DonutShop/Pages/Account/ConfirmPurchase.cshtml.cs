@@ -4,6 +4,7 @@ using System.Linq;
 using System.Security.Claims;
 using System.Text;
 using System.Threading.Tasks;
+using DonutShop.Models;
 using DonutShop.Models.Interfaces;
 using Microsoft.AspNetCore.Identity.UI.Services;
 using Microsoft.AspNetCore.Mvc;
@@ -15,10 +16,13 @@ namespace DonutShop.Pages.Account
     {
         private IEmailSender _emailSender;
         private ICart _cart;
-        public ConfirmPurchaseModel(IEmailSender emailSender, ICart cart)
+        private IOrder _order;
+
+        public ConfirmPurchaseModel(IEmailSender emailSender, ICart cart, IOrder order)
         {
             _emailSender = emailSender;
             _cart = cart;
+            _order = order;
         }
         public void OnGet()
         {
@@ -26,6 +30,7 @@ namespace DonutShop.Pages.Account
         }
         public async Task<IActionResult> OnPost()
         {
+            //send email receipt
             StringBuilder builder = new StringBuilder();
             string email = User.Claims.FirstOrDefault(x => x.Type == ClaimValueTypes.Email).Value;
             string subject = "Thank you for your purchase!";
@@ -41,10 +46,28 @@ namespace DonutShop.Pages.Account
             }
             builder.Append($"Total: {total}");
 
-
             await _emailSender.SendEmailAsync(email, subject, builder.ToString());
 
-            return Page();
+            //create and save new order
+            Order order = new Order()
+            {
+                Email = email
+            };
+            await _order.CreateOrder(order);
+            var savedOrder = await _order.GetOrder(order.ID, email);
+            foreach (var item in items)
+            {
+                OrderItem orderItem = new OrderItem()
+                {
+                    OrderID = savedOrder.ID,
+                    DonutID = item.DonutID,
+                    Quantity = item.Quantity
+                };
+                await _order.CreateOrderItem(orderItem);
+                await _cart.RemoveFromCart(item.ID);
+            }
+
+            return Redirect($"~/account/receipt/{savedOrder.ID}");
         }
     }
 }

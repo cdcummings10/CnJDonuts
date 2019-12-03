@@ -7,11 +7,11 @@ using Microsoft.EntityFrameworkCore.Metadata;
 using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
-namespace DonutShop.Migrations
+namespace DonutShop.Migrations.UserDb
 {
     [DbContext(typeof(UserDbContext))]
-    [Migration("20191120185723_userInitial")]
-    partial class userInitial
+    [Migration("20191203163410_Initial")]
+    partial class Initial
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
