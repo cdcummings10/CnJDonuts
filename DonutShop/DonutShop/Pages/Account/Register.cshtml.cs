@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 using DonutShop.Models;
 using DonutShop.Models.Interfaces;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Identity.UI.Services;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.Extensions.Configuration;
@@ -18,18 +19,22 @@ namespace DonutShop.Pages.Account
         private UserManager<ApplicationUser> _userManager;
         private SignInManager<ApplicationUser> _signInManager;
         private ICart _cartManager;
+        private IEmailSender _emailSender;
 
         public IConfiguration Configuration { get; private set; }
+
+
         [BindProperty]
         public UserRegistration UserInput { get; set; }
 
         public RegisterModel(UserManager<ApplicationUser> userManager, SignInManager<ApplicationUser> signInManager,
-            IConfiguration configuration, ICart cartManager)
+            IConfiguration configuration, ICart cartManager, IEmailSender emailSender)
         {
             _userManager = userManager;
             _signInManager = signInManager;
             _cartManager = cartManager;
             Configuration = configuration;
+            _emailSender = emailSender;
         }
         public void OnGet()
         {
@@ -75,8 +80,14 @@ namespace DonutShop.Pages.Account
 
                     await _signInManager.SignInAsync(newUser, isPersistent: false);
 
+                    // generate new cart for the user.
                     Cart cart = new Cart() { UserEmail = UserInput.Email };
                     await _cartManager.GenerateCart(cart);
+
+                    // send welcome email.
+                    string subject = "Welcome to C&J Donuts!";
+                    string message = $"Thank you for joining C&J Donuts, {newUser.FirstName}!";
+                    await _emailSender.SendEmailAsync(newUser.Email, subject, message);
 
                     return RedirectToAction("Index", "Home");
                 }
