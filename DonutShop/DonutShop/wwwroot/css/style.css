@@ -24,13 +24,13 @@ nav {
     color: white;
 }
 
-nav a {
-    color: lightgray;
-}
+    nav a {
+        color: lightgray;
+    }
 
-nav a:hover {
-    color: white;
-}
+        nav a:hover {
+            color: white;
+        }
 
 .productImage {
     width: 200px;
@@ -40,7 +40,7 @@ nav a:hover {
 
 .displayDiv h6, .displayDiv p {
     border-radius: 5px;
-    background-color:saddlebrown;
+    background-color: saddlebrown;
     color: white;
     text-align: center;
     line-height: 50px;
@@ -61,12 +61,12 @@ nav a:hover {
     margin: 0 auto;
 }
 
-.detailsDiv h6 {
-    margin: 20px;
-    line-height: 70px;
-    font-weight: bold;
-    font-size: 1.5em;
-}
+    .detailsDiv h6 {
+        margin: 20px;
+        line-height: 70px;
+        font-weight: bold;
+        font-size: 1.5em;
+    }
 
 #detailImage {
     display: inline-block;
@@ -94,15 +94,21 @@ nav a:hover {
     margin: 0 auto;
 }
 
-.loginDiv label, .registerDiv label {
-    float: left;
-}
+    .loginDiv label, .registerDiv label {
+        float: left;
+    }
 
-.loginDiv input, .registerDiv input {
-    float: right;
-}
+    .loginDiv input, .registerDiv input {
+        float: right;
+    }
 
-#carouselExampleIndicators{
+#carouselExampleIndicators {
     width: 400px;
     margin: 0 auto;
+}
+
+.clearfix::after {
+    content: "";
+    clear: both;
+    display: table;
 }

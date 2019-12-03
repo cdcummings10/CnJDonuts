@@ -4,6 +4,8 @@
     ViewData["Title"] = "Details";
     Layout = "_Layout";
 }
+@using System.Security.Claims
+@using DonutShop.Models
 
 <h1>@Model.Donut.Name</h1>
 <div class="detailsDiv">
@@ -11,11 +13,24 @@
     <h6>SKU: @Model.Donut.SKU</h6>
     <h6>Price: $@Model.Donut.Price</h6>
     <p>@Model.Donut.Description</p>
-    <form>
-        <button> Add to Cart</button>
-    </form>
+    @if (User.IsInRole(ApplicationRoles.Member))
+    {
+        <form asp-action="AddToCart" asp-controller="product">
+            <input type="hidden" asp-for="User.Claims.FirstOrDefault(x => x.Type == ClaimValueTypes.Email).Value" />
+            <input type="hidden" asp-for="@Model.Donut.ID" name="donutID" />
+            <label>Quantity:</label>
+            <input type="number" name="quantity" />
+            <button> Add to Cart</button>
+        </form>
+    }
     <form method="get" asp-controller="product" asp-action="index">
         <button href="~/product/">Back</button>
     </form>
 </div>
+
+<div class="clearfix"></div>
+@if (User.IsInRole(ApplicationRoles.Member))
+{
+    @await Component.InvokeAsync("MiniCart", User.Claims.FirstOrDefault(x => x.Type == ClaimValueTypes.Email).Value)
+}
 

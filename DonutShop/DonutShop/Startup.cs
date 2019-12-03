@@ -10,6 +10,7 @@ using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Identity.UI.Services;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -35,11 +36,11 @@ namespace DonutShop
             services.AddMvc();
 
             string userConnectionString = Environment.IsDevelopment()
-                ? Configuration["ConnectionStrings:UserDefaultConnection"]
+                ? Configuration["ConnectionStrings:UserProductionConnection"]
                 : Configuration["ConnectionStrings:UserProductionConnection"];
             
             string inventoryConnectionString = Environment.IsDevelopment()
-                ? Configuration["ConnectionStrings:InventoryDefaultConnection"]
+                ? Configuration["ConnectionStrings:InventoryProductionConnection"]
                 : Configuration["ConnectionStrings:InventoryProductionConnection"];
 
             services.AddDbContext<UserDbContext>(options =>
@@ -53,10 +54,16 @@ namespace DonutShop
                     .AddDefaultTokenProviders();
 
             services.AddScoped<IInventory<Donut>, DonutService>();
+            services.AddScoped<ICart, CartService>();
+            services.AddScoped<IEmailSender, EmailService>();
+            services.AddScoped<IOrder, OrderService>();
+
+            services.AddAuthorization(options =>
+            options.AddPolicy("AdminOnly", policy => policy.RequireRole(ApplicationRoles.Admin)));
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
+        public void Configure(IApplicationBuilder app, IWebHostEnvironment env, IServiceProvider serviceProvider)
         {
             if (env.IsDevelopment())
             {
@@ -65,6 +72,7 @@ namespace DonutShop
 
             app.UseRouting();
             app.UseAuthentication();
+            app.UseAuthorization();
             app.UseStaticFiles();
 
             app.UseEndpoints(endpoints =>
@@ -72,6 +80,8 @@ namespace DonutShop
                 endpoints.MapRazorPages();
                 endpoints.MapControllerRoute("default", "{controller=Home}/{action=Index}/{id?}");
             });
+
+            RoleInitializer.SeedData(serviceProvider);
         }
     }
 }

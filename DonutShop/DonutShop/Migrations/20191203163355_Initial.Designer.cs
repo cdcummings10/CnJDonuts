@@ -6,11 +6,11 @@ using Microsoft.EntityFrameworkCore.Metadata;
 using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
-namespace DonutShop.Migrations.InventoryDb
+namespace DonutShop.Migrations
 {
     [DbContext(typeof(InventoryDbContext))]
-    [Migration("20191120220158_inventoryInitial")]
-    partial class inventoryInitial
+    [Migration("20191203163355_Initial")]
+    partial class Initial
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -19,6 +19,47 @@ namespace DonutShop.Migrations.InventoryDb
                 .HasAnnotation("ProductVersion", "3.0.0")
                 .HasAnnotation("Relational:MaxIdentifierLength", 128)
                 .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+            modelBuilder.Entity("DonutShop.Models.Cart", b =>
+                {
+                    b.Property<int>("ID")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<string>("UserEmail")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("ID");
+
+                    b.ToTable("Carts");
+                });
+
+            modelBuilder.Entity("DonutShop.Models.CartItem", b =>
+                {
+                    b.Property<int>("ID")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<int>("CartID")
+                        .HasColumnType("int");
+
+                    b.Property<int>("DonutID")
+                        .HasColumnType("int");
+
+                    b.Property<int>("Quantity")
+                        .HasColumnType("int");
+
+                    b.HasKey("ID");
+
+                    b.HasIndex("CartID");
+
+                    b.HasIndex("DonutID")
+                        .IsUnique();
+
+                    b.ToTable("CartItems");
+                });
 
             modelBuilder.Entity("DonutShop.Models.Donut", b =>
                 {
@@ -59,7 +100,7 @@ namespace DonutShop.Migrations.InventoryDb
                             Boozey = true,
                             CreamFilled = false,
                             Description = "Cinnamon with a twist! A cinnamon twist donut made with a fiery cinnamon whiskey.",
-                            ImageUrl = "https://i.pinimg.com/originals/bd/bf/f5/bdbff556126cd42ff4a05d37cf3d4ead.jpg",
+                            ImageUrl = "/assets/images/CinnamonWhiskeyTwist.png",
                             Name = "Cinnamon Whiskey Twist",
                             Price = 5.5m,
                             SKU = "111"
@@ -70,7 +111,7 @@ namespace DonutShop.Migrations.InventoryDb
                             Boozey = true,
                             CreamFilled = true,
                             Description = "A maple bar, but better. It's cream filled. But better still! The cream is a rum cream for the best kick in a donut!",
-                            ImageUrl = "https://i2.wp.com/butterwithasideofbread.com/wp-content/uploads/2015/06/15MinuteMapleBars3.jpg?resize=632%2C852&ssl=1",
+                            ImageUrl = "/assets/images/CreamFilledRumMapleBar.png",
                             Name = "Cream Filled Rum Maple Bar",
                             Price = 5.5m,
                             SKU = "222"
@@ -81,7 +122,7 @@ namespace DonutShop.Migrations.InventoryDb
                             Boozey = false,
                             CreamFilled = false,
                             Description = "Your tried and true, lovely maple bar. No other description required.",
-                            ImageUrl = "https://upload.wikimedia.org/wikipedia/en/c/ce/FullLongJohn.jpg",
+                            ImageUrl = "/assets/images/MapleBar.png",
                             Name = "Maple Bar",
                             Price = 2.5m,
                             SKU = "333"
@@ -92,7 +133,7 @@ namespace DonutShop.Migrations.InventoryDb
                             Boozey = false,
                             CreamFilled = false,
                             Description = "Old fashioned donut covered in glaze and made ready to eat! Oldy but goody!",
-                            ImageUrl = "http://jensfavoritecookies.com/wp-content/uploads/2016/10/old-fashioned-donuts-12-300x300.jpg",
+                            ImageUrl = "/assets/images/OldFashioned.png",
                             Name = "Old Fashioned",
                             Price = 2.5m,
                             SKU = "444"
@@ -103,7 +144,7 @@ namespace DonutShop.Migrations.InventoryDb
                             Boozey = false,
                             CreamFilled = true,
                             Description = "A chocolate covered donut full of chocolate cream. Double chocolate for the chocolate lovers.",
-                            ImageUrl = "https://www.halfbakedharvest.com/wp-content/uploads/2013/02/Chocolate-Irish-Cream-Filled-Dounuts-12.jpg",
+                            ImageUrl = "/assets/images/ChocolateCreamFilled.png",
                             Name = "Chocolate Cream Filled",
                             Price = 3m,
                             SKU = "555"
@@ -114,7 +155,7 @@ namespace DonutShop.Migrations.InventoryDb
                             Boozey = false,
                             CreamFilled = false,
                             Description = "A classic donut covered in chocolate frosting. It's amazing, simple and delicious.",
-                            ImageUrl = "https://assets.epicurious.com/photos/57978bbc3a12dd9d5602400a/2:1/w_1260%2Ch_630/chocolate-glaze.jpg",
+                            ImageUrl = "/assets/images/ChocolateFrosting.png",
                             Name = "Chocolate Frosting",
                             Price = 2.5m,
                             SKU = "666"
@@ -125,7 +166,7 @@ namespace DonutShop.Migrations.InventoryDb
                             Boozey = false,
                             CreamFilled = false,
                             Description = "A donut twist covered in delicious cinnamon sugar. Delicious!",
-                            ImageUrl = "https://miro.medium.com/max/4536/1*ZhdMfGD7bWxjphgxmsjdkg.jpeg",
+                            ImageUrl = "/assets/images/CinnamonTwist.png",
                             Name = "Cinnamon Twist",
                             Price = 2.5m,
                             SKU = "777"
@@ -136,7 +177,7 @@ namespace DonutShop.Migrations.InventoryDb
                             Boozey = false,
                             CreamFilled = true,
                             Description = "Your classic maple bar, but why not add more? Cream filled and wonderful.",
-                            ImageUrl = "https://thefoodcharlatan.com/wp-content/uploads/2012/04/IMG_3167-e1386614602801.jpg",
+                            ImageUrl = "/assets/images/CreamFilledMapleBar.png",
                             Name = "Cream Filled Maple Bar",
                             Price = 3m,
                             SKU = "888"
@@ -147,7 +188,7 @@ namespace DonutShop.Migrations.InventoryDb
                             Boozey = false,
                             CreamFilled = false,
                             Description = "A confetti cake style donut covered in frosting and sprinkles! Very festive and very tasty.",
-                            ImageUrl = "https://melssweetlife.files.wordpress.com/2012/05/donuts.jpg",
+                            ImageUrl = "/assets/images/Confetti.png",
                             Name = "Confetti",
                             Price = 2.5m,
                             SKU = "999"
@@ -158,11 +199,74 @@ namespace DonutShop.Migrations.InventoryDb
                             Boozey = true,
                             CreamFilled = true,
                             Description = "Our confetti donut but filled with a vodka cream. Celebrate your favorite event!",
-                            ImageUrl = "https://cdn.evermine.com/blog/wp-content/uploads/2015/03/Funfetti-Donuts-15.jpg",
+                            ImageUrl = "/assets/images/VodkaCreamFilledConfetti.png",
                             Name = "Vodka Cream Filled Confetti",
                             Price = 5.5m,
                             SKU = "101"
                         });
+                });
+
+            modelBuilder.Entity("DonutShop.Models.Order", b =>
+                {
+                    b.Property<int>("ID")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<string>("Email")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("ID");
+
+                    b.ToTable("Orders");
+                });
+
+            modelBuilder.Entity("DonutShop.Models.OrderItem", b =>
+                {
+                    b.Property<int>("OrderID")
+                        .HasColumnType("int");
+
+                    b.Property<int>("DonutID")
+                        .HasColumnType("int");
+
+                    b.Property<int>("Quantity")
+                        .HasColumnType("int");
+
+                    b.HasKey("OrderID", "DonutID");
+
+                    b.HasIndex("DonutID");
+
+                    b.ToTable("OrderItems");
+                });
+
+            modelBuilder.Entity("DonutShop.Models.CartItem", b =>
+                {
+                    b.HasOne("DonutShop.Models.Cart", "Cart")
+                        .WithMany("CartItems")
+                        .HasForeignKey("CartID")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("DonutShop.Models.Donut", "Donut")
+                        .WithOne("CartItem")
+                        .HasForeignKey("DonutShop.Models.CartItem", "DonutID")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+                });
+
+            modelBuilder.Entity("DonutShop.Models.OrderItem", b =>
+                {
+                    b.HasOne("DonutShop.Models.Donut", "Donut")
+                        .WithMany()
+                        .HasForeignKey("DonutID")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("DonutShop.Models.Order", "Order")
+                        .WithMany("OrderItems")
+                        .HasForeignKey("OrderID")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
                 });
 #pragma warning restore 612, 618
         }

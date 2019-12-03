@@ -19,6 +19,8 @@ namespace DonutShop.Data
         /// <param name="builder"></param>
         protected override void OnModelCreating(ModelBuilder builder)
         {
+            builder.Entity<OrderItem>().HasKey(item => new { item.OrderID, item.DonutID });
+
             builder.Entity<Donut>().HasData(
                 new Donut
                 {
@@ -133,5 +135,9 @@ namespace DonutShop.Data
                 );
         }
         public DbSet<Donut> Donuts { get; set; }
+        public DbSet<Cart> Carts { get; set; }
+        public DbSet<CartItem> CartItems { get; set; }
+        public DbSet<Order> Orders { get; set; }
+        public DbSet<OrderItem> OrderItems { get; set; }
     }
 }
