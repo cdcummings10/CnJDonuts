@@ -28,6 +28,11 @@ namespace DonutShop.Pages.Account
         {
 
         }
+        /// <summary>
+        /// Takes in a form and creates an email receipt that is sent to the user. Creates a new order and 
+        /// saves it into the database.
+        /// </summary>
+        /// <returns>Redirects to the saved order.</returns>
         public async Task<IActionResult> OnPost()
         {
             //send email receipt

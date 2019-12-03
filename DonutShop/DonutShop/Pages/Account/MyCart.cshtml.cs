@@ -22,6 +22,9 @@ namespace DonutShop.Pages.Account
         {
             _context = cart;
         }
+        /// <summary>
+        /// Displays the cart from the databased that is associated with the logged in user.
+        /// </summary>
         public async Task OnGet()
         {
             if (User.IsInRole(ApplicationRoles.Member))
