@@ -20,6 +20,10 @@ namespace DonutShop.Pages.Account
         {
             _order = order;
         }
+        /// <summary>
+        /// Takes in the order's ID and grabs the user's email claim and displays the OrderItems associated with the order.
+        /// </summary>
+        /// <param name="id">Takes in the order's ID.</param>
         public async Task OnGet(int id)
         {
             string email = User.Claims.FirstOrDefault(x => x.Type == ClaimValueTypes.Email).Value;
