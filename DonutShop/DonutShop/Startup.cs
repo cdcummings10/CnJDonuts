@@ -10,6 +10,7 @@ using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Identity.UI.Services;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -54,6 +55,7 @@ namespace DonutShop
 
             services.AddScoped<IInventory<Donut>, DonutService>();
             services.AddScoped<ICart, CartService>();
+            services.AddScoped<IEmailSender, EmailService>();
 
             services.AddAuthorization(options =>
             options.AddPolicy("AdminOnly", policy => policy.RequireRole(ApplicationRoles.Admin)));
