@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Security.Claims;
 using System.Text;
@@ -14,12 +15,20 @@ namespace DonutShop.Pages.Account
 {
     public class ConfirmPurchaseModel : PageModel
     {
+        private IPayment _payment;
         private IEmailSender _emailSender;
         private ICart _cart;
         private IOrder _order;
 
-        public ConfirmPurchaseModel(IEmailSender emailSender, ICart cart, IOrder order)
+        [BindProperty]
+        public Address Address { get; set; }
+        [Display(Name = "Credit Card")]
+        [BindProperty]
+        public string CreditCard { get; set; }
+
+        public ConfirmPurchaseModel(IEmailSender emailSender, ICart cart, IOrder order, IPayment payment)
         {
+            _payment = payment;
             _emailSender = emailSender;
             _cart = cart;
             _order = order;
@@ -35,14 +44,12 @@ namespace DonutShop.Pages.Account
         /// <returns>Redirects to the saved order.</returns>
         public async Task<IActionResult> OnPost()
         {
-            //send email receipt
-            StringBuilder builder = new StringBuilder();
             string email = User.Claims.FirstOrDefault(x => x.Type == ClaimValueTypes.Email).Value;
             string subject = "Thank you for your purchase!";
             var items = await _cart.GetCartItems(email);
-
+            StringBuilder builder = new StringBuilder();
             decimal total = 0;
-            foreach(var item in items)
+            foreach (var item in items)
             {
                 builder.Append($"Item: {item.Donut.Name}\n");
                 builder.Append($"Quantity: {item.Quantity}\n");
@@ -51,6 +58,11 @@ namespace DonutShop.Pages.Account
             }
             builder.Append($"Total: {total}");
 
+            //process payment
+            _payment.Run(total, Convert.ToInt32(CreditCard), Address);
+
+
+            //send email receipt
             await _emailSender.SendEmailAsync(email, subject, builder.ToString());
 
             //create and save new order
