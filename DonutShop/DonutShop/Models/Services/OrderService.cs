@@ -34,13 +34,26 @@ namespace DonutShop.Models.Services
             await _context.AddAsync(orderItem);
             await _context.SaveChangesAsync();
         }
+
+        public async Task<IEnumerable<Order>> GetAllOrders()
+        {
+            return await _context.Orders
+                .Include(x => x.OrderItems)
+                .ToListAsync();
+        }
+
+        public async Task<Order> GetOrderForAdmin(int id)
+        {
+            return await _context.Orders.FirstOrDefaultAsync(x =>x.ID == id);
+        }
+
         /// <summary>
         /// Gets order based on the order's ID and the user's email.
         /// </summary>
         /// <param name="orderID">Takes in the order's ID</param>
         /// <param name="email">Takes in the user's email.</param>
         /// <returns>Returns the specific Order.</returns>
-        public async Task<Order> GetOrder(int orderID, string email)
+        public async Task<Order> GetOrderForCustomer(int orderID, string email)
         {
             return await _context.Orders.FirstOrDefaultAsync(x => x.Email == email && x.ID == orderID);
         }
