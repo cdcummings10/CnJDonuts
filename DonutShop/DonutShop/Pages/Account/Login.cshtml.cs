@@ -7,18 +7,22 @@ using DonutShop.Models;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
+using Microsoft.Extensions.Configuration;
 
 namespace DonutShop.Pages.Account
 {
     public class LoginModel : PageModel
     {
         private SignInManager<ApplicationUser> _signInManager;
+
+        public IConfiguration Configuration { get; }
         [BindProperty]
         public LoginInput UserInput { get; set; }
 
-        public LoginModel(SignInManager<ApplicationUser> signInManager)
+        public LoginModel(SignInManager<ApplicationUser> signInManager, IConfiguration configuration)
         {
             _signInManager = signInManager;
+            Configuration = configuration;
         }
         public void OnGet()
         {
@@ -36,6 +40,10 @@ namespace DonutShop.Pages.Account
 
                 if (result.Succeeded)
                 {
+                    if (UserInput.Email.Contains(Configuration["AdminEmail"]))
+                    {
+                        return Redirect("~/Admin/Portal");
+                    }
                     return RedirectToAction("Index", "Home");
                 }
                 else

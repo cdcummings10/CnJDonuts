@@ -22,6 +22,10 @@ namespace DonutShop.Controllers
         /// <returns></returns>
         public async Task<IActionResult> Index()
         {
+            if (User.IsInRole(ApplicationRoles.Admin))
+            {
+                return Redirect("~/Admin/Portal");
+            }
             var donuts = await _context.GetAll();
             return View(donuts);
         }
