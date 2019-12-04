@@ -9,7 +9,37 @@
 
 @await Component.InvokeAsync("MiniCart", User.Claims.FirstOrDefault(x => x.Type == ClaimValueTypes.Email).Value)
 
-<h6>Would you like to place this order?</h6>
+
+
 <form method="post">
+    <fieldset>
+        <label asp-for="Address.FirstName"></label>
+        <input asp-for="Address.FirstName" />
+    </fieldset>
+    <fieldset>
+        <label asp-for="Address.LastName"></label>
+        <input asp-for="Address.LastName" />
+    </fieldset>
+    <fieldset>
+        <label asp-for="Address.StreetAddress"></label>
+        <input asp-for="Address.StreetAddress" />
+    </fieldset>
+    <fieldset>
+        <label asp-for="Address.City"></label>
+        <input asp-for="Address.City" />
+    </fieldset>
+    <fieldset>
+        <label asp-for="Address.ZipCode"></label>
+        <input asp-for="Address.ZipCode" />
+    </fieldset>
+    <fieldset>
+        <label asp-for="CreditCard"></label>
+        <select asp-for="CreditCard">
+            <option value="1">Visa</option>
+            <option value="2">MasterCard</option>
+            <option value="3">American Express</option>
+        </select>
+    </fieldset>
+    <h6>Would you like to place this order?</h6>
     <button type="submit">Place Order</button>
 </form>
