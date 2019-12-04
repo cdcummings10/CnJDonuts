@@ -71,7 +71,7 @@ namespace DonutShop.Pages.Account
                 Email = email
             };
             await _order.CreateOrder(order);
-            var savedOrder = await _order.GetOrder(order.ID, email);
+            var savedOrder = await _order.GetOrderForCustomer(order.ID, email);
             foreach (var item in items)
             {
                 OrderItem orderItem = new OrderItem()

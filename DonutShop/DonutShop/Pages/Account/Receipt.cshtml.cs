@@ -27,7 +27,7 @@ namespace DonutShop.Pages.Account
         public async Task OnGet(int id)
         {
             string email = User.Claims.FirstOrDefault(x => x.Type == ClaimValueTypes.Email).Value;
-            Order order = await _order.GetOrder(id, email);
+            Order order = await _order.GetOrderForCustomer(id, email);
             OrderItems = await _order.GetOrderItems(id, email);
         }
     }

@@ -23,7 +23,13 @@ namespace DonutShop.Models.Interfaces
         /// <param name="orderID">Takes in the order's ID</param>
         /// <param name="email">Takes in the user's email.</param>
         /// <returns>Returns the specific Order.</returns>
-        Task<Order> GetOrder(int orderID, string email);
+        Task<Order> GetOrderForCustomer(int orderID, string email);
+        /// <summary>
+        /// Gets an order only based on an ID. Used for admin purposes only.
+        /// </summary>
+        /// <param name="id">Takes in the order's ID</param>
+        /// <returns>Returns the order.</returns>
+        Task<Order> GetOrderForAdmin(int id);
         /// <summary>
         /// Gets all items associated with an order. Order is retrieved by the orderID and the user's email.
         /// </summary>
@@ -31,5 +37,10 @@ namespace DonutShop.Models.Interfaces
         /// <param name="email">Takes in the user's email.</param>
         /// <returns>Returns an enumerable of OrderItems.</returns>
         Task<IEnumerable<OrderItem>> GetOrderItems(int orderID, string email);
+        /// <summary>
+        /// Grabs all orders from the database, regardless of user. For Admins.
+        /// </summary>
+        /// <returns>Returns a list of all orders in the database.</returns>
+        Task<IEnumerable<Order>> GetAllOrders();
     }
 }
