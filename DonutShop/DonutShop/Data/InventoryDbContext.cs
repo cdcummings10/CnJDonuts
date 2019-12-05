@@ -29,7 +29,7 @@ namespace DonutShop.Data
                     Description = "Cinnamon with a twist! A cinnamon twist donut made with a fiery cinnamon whiskey.",
                     SKU = "111",
                     Price = 5.5m,
-                    ImageUrl = "/assets/images/CinnamonWhiskeyTwist.png",
+                    ImageUrl = "https://cnjdonuts.blob.core.windows.net/products/CinnamonWhiskeyTwist.png",
                     Boozey = true,
                     CreamFilled = false
                 },
@@ -40,7 +40,7 @@ namespace DonutShop.Data
                     Description = "A maple bar, but better. It's cream filled. But better still! The cream is a rum cream for the best kick in a donut!",
                     SKU = "222",
                     Price = 5.5m,
-                    ImageUrl = "/assets/images/CreamFilledRumMapleBar.png",
+                    ImageUrl = "https://cnjdonuts.blob.core.windows.net/products/CreamFilledRumMapleBar.png",
                     Boozey = true,
                     CreamFilled = true
                 },
@@ -51,7 +51,7 @@ namespace DonutShop.Data
                     Description = "Your tried and true, lovely maple bar. No other description required.",
                     SKU = "333",
                     Price = 2.5m,
-                    ImageUrl = "/assets/images/MapleBar.png",
+                    ImageUrl = "https://cnjdonuts.blob.core.windows.net/products/MapleBar.png",
                     Boozey = false,
                     CreamFilled = false
                 },
@@ -62,7 +62,7 @@ namespace DonutShop.Data
                     Description = "Old fashioned donut covered in glaze and made ready to eat! Oldy but goody!",
                     SKU = "444",
                     Price = 2.5m,
-                    ImageUrl = "/assets/images/OldFashioned.png",
+                    ImageUrl = "https://cnjdonuts.blob.core.windows.net/products/OldFashioned.png",
                     Boozey = false,
                     CreamFilled = false
                 },
@@ -73,7 +73,7 @@ namespace DonutShop.Data
                     Description = "A chocolate covered donut full of chocolate cream. Double chocolate for the chocolate lovers.",
                     SKU = "555",
                     Price = 3m,
-                    ImageUrl = "/assets/images/ChocolateCreamFilled.png",
+                    ImageUrl = "https://cnjdonuts.blob.core.windows.net/products/ChocolateCreamFilled.png",
                     Boozey = false,
                     CreamFilled = true
                 },
@@ -84,7 +84,7 @@ namespace DonutShop.Data
                     Description = "A classic donut covered in chocolate frosting. It's amazing, simple and delicious.",
                     SKU = "666",
                     Price = 2.5m,
-                    ImageUrl = "/assets/images/ChocolateFrosting.png",
+                    ImageUrl = "https://cnjdonuts.blob.core.windows.net/products/ChocolateFrosting.png",
                     Boozey = false,
                     CreamFilled = false
                 },
@@ -95,7 +95,7 @@ namespace DonutShop.Data
                     Description = "A donut twist covered in delicious cinnamon sugar. Delicious!",
                     SKU = "777",
                     Price = 2.5m,
-                    ImageUrl = "/assets/images/CinnamonTwist.png",
+                    ImageUrl = "https://cnjdonuts.blob.core.windows.net/products/CinnamonTwist.png",
                     Boozey = false,
                     CreamFilled = false
                 },
@@ -106,7 +106,7 @@ namespace DonutShop.Data
                     Description = "Your classic maple bar, but why not add more? Cream filled and wonderful.",
                     SKU = "888",
                     Price = 3m,
-                    ImageUrl = "/assets/images/CreamFilledMapleBar.png",
+                    ImageUrl = "https://cnjdonuts.blob.core.windows.net/products/CreamFilledMapleBar.png",
                     Boozey = false,
                     CreamFilled = true
                 },
@@ -117,7 +117,7 @@ namespace DonutShop.Data
                     Description = "A confetti cake style donut covered in frosting and sprinkles! Very festive and very tasty.",
                     SKU = "999",
                     Price = 2.5m,
-                    ImageUrl = "/assets/images/Confetti.png",
+                    ImageUrl = "https://cnjdonuts.blob.core.windows.net/products/Confetti.png",
                     Boozey = false,
                     CreamFilled = false
                 },
@@ -128,7 +128,7 @@ namespace DonutShop.Data
                     Description = "Our confetti donut but filled with a vodka cream. Celebrate your favorite event!",
                     SKU = "101",
                     Price = 5.5m,
-                    ImageUrl = "/assets/images/VodkaCreamFilledConfetti.png",
+                    ImageUrl = "https://cnjdonuts.blob.core.windows.net/products/VodkaCreamFilledConfetti.png",
                     Boozey = true,
                     CreamFilled = true
                 }
