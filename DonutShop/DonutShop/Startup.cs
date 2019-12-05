@@ -57,6 +57,7 @@ namespace DonutShop
             services.AddScoped<ICart, CartService>();
             services.AddScoped<IEmailSender, EmailService>();
             services.AddScoped<IOrder, OrderService>();
+            services.AddScoped<IPayment, PaymentService>();
 
             services.AddAuthorization(options =>
             options.AddPolicy("AdminOnly", policy => policy.RequireRole(ApplicationRoles.Admin)));

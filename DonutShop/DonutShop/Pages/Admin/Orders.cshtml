@@ -1,0 +1,25 @@
+﻿@page
+@model DonutShop.Pages.Admin.OrdersModel
+@{
+    ViewData["Title"] = "Orders";
+}
+
+<h1>Orders</h1>
+<ul>
+    @foreach (var item in Model.OrdersList)
+    {
+        <li>
+            <h5>Order Number: @item.ID  User:@item.Email</h5>
+            @foreach(var orderItem in item.OrderItems)
+            {
+                <p>Item Number: @orderItem.DonutID    Qty: @orderItem.Quantity</p>
+            }
+            <form method="post">
+                <input type="hidden" value="@item.ID" name="OrderID" />
+                <button type="submit">View Order</button>
+            </form>
+        </li>
+
+    }
+
+</ul>
