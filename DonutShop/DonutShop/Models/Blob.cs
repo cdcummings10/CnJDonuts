@@ -59,5 +59,17 @@ namespace DonutShop.Models
             var blockBlob = container.GetBlockBlobReference(fileName);
             await blockBlob.DeleteAsync();
         }
+        /// <summary>
+        /// Gets a blob by taking in the container name and the image name and returning the blob.
+        /// </summary>
+        /// <param name="imageName">Takes in the name of the image.</param>
+        /// <param name="containerName">Takes in the name of the container.</param>
+        /// <returns>Returns the CloudBlob</returns>
+        public async Task<CloudBlob> GetBlob(string imageName, string containerName)
+        {
+            var container = await GetContainer(containerName);
+            CloudBlob blob = container.GetBlobReference(imageName);
+            return blob;
+        }
     }
 }
