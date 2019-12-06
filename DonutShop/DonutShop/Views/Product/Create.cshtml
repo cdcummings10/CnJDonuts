@@ -1,47 +1,51 @@
-﻿@model DonutShop.Models.Donut
+﻿@model DonutShop.Models.ViewModels.AdminUpdateViewModel
 
 <h1>Add Donut to Inventory</h1>
 
 <div class="row">
     <div class="col-md-4 loginForm">
-        <form asp-action="Create">
+        <form asp-action="Create" enctype="multipart/form-data">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <div class="form-group">
-                <label asp-for="Name" class="control-label"></label>
-                <input asp-for="Name" class="form-control" />
-                <span asp-validation-for="Name" class="text-danger"></span>
+                <label asp-for="Donut.Name" class="control-label"></label>
+                <input asp-for="Donut.Name" class="form-control" />
+                <span asp-validation-for="Donut.Name" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="Description" class="control-label"></label>
-                <input asp-for="Description" class="form-control" />
-                <span asp-validation-for="Description" class="text-danger"></span>
+                <label asp-for="Donut.Description" class="control-label"></label>
+                <input asp-for="Donut.Description" class="form-control" />
+                <span asp-validation-for="Donut.Description" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="ImageUrl" class="control-label"></label>
-                <input asp-for="ImageUrl" class="form-control" />
-                <span asp-validation-for="ImageUrl" class="text-danger"></span>
+                <label class="control-label">Image Title</label>
+                <input asp-for="Donut.ImageName" class="form-control" />
+                <span asp-validation-for="Donut.ImageName" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="SKU" class="control-label"></label>
-                <input asp-for="SKU" class="form-control" />
-                <span asp-validation-for="SKU" class="text-danger"></span>
+                <label asp-for="Image" class="control-label">Upload Image</label>
+                <input asp-for="Image" type="file" />
             </div>
             <div class="form-group">
-                <label asp-for="Price" class="control-label"></label>
-                <input asp-for="Price" class="form-control" />
-                <span asp-validation-for="Price" class="text-danger"></span>
+                <label asp-for="Donut.SKU" class="control-label"></label>
+                <input asp-for="Donut.SKU" class="form-control" />
+                <span asp-validation-for="Donut.SKU" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Donut.Price" class="control-label"></label>
+                <input asp-for="Donut.Price" class="form-control" />
+                <span asp-validation-for="Donut.Price" class="text-danger"></span>
             </div>
             <fieldset class="form-group">
                 Cream Filled?<br />
-                <label asp-for="CreamFilled" />
-                <input type="radio" asp-for="CreamFilled" value="True" /> Yes
-                <input type="radio" asp-for="CreamFilled" value="False" /> No
+                <label asp-for="Donut.CreamFilled" />
+                <input type="radio" asp-for="Donut.CreamFilled" value="True" /> Yes
+                <input type="radio" asp-for="Donut.CreamFilled" value="False" /> No
             </fieldset>
             <fieldset class="form-group">
                 Boozey?<br />
-                <label asp-for="Boozey" />
-                <input type="radio" asp-for="Boozey" value="True" /> Yes
-                <input type="radio" asp-for="Boozey" value="False" /> No
+                <label asp-for="Donut.Boozey" />
+                <input type="radio" asp-for="Donut.Boozey" value="True" /> Yes
+                <input type="radio" asp-for="Donut.Boozey" value="False" /> No
             </fieldset>
             <div class="form-group">
                 <input type="submit" value="Create" class="btn btn-primary" />
