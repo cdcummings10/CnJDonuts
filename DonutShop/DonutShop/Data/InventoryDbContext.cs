@@ -89,7 +89,7 @@ namespace DonutShop.Data
                     Description = "A classic donut covered in chocolate frosting. It's amazing, simple and delicious.",
                     SKU = "666",
                     Price = 2.5m,
-                    ImageName = "ChocolateFrosting.png"
+                    ImageName = "ChocolateFrosting.png",
                     ImageUrl = "https://cnjdonuts.blob.core.windows.net/products/ChocolateFrosting.png",
                     Boozey = false,
                     CreamFilled = false
