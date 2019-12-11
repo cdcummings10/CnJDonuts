@@ -65,7 +65,7 @@ namespace DonutShop.Controllers
         {
             if (ModelState.IsValid)
             {
-                string uploadURL = await UploadImageToBlob(Image, donut.ImageUrl);
+                string uploadURL = await UploadImageToBlob(Image, donut.ImageName);
                 donut.ImageUrl = uploadURL;
                 await _inventory.Create(donut);
                 return Redirect($"~/product/details/{donut.ID}");
@@ -95,7 +95,7 @@ namespace DonutShop.Controllers
             if (ModelState.IsValid)
             {
                 await DeleteBlob(donut.ImageUrl);
-                string uploadURL = await UploadImageToBlob(Image, donut.ImageUrl);
+                string uploadURL = await UploadImageToBlob(Image, donut.ImageName);
                 donut.ImageUrl = uploadURL;
                 await _inventory.Update(donut);
                 return Redirect($"~/product/details/{donut.ID}");
