@@ -5,6 +5,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using DonutShop.Models;
 using DonutShop.Models.Interfaces;
+using DonutShop.Models.ViewModels;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -81,7 +82,11 @@ namespace DonutShop.Controllers
         public async Task<IActionResult> Edit(int id)
         {
             Donut donut = await _inventory.GetByID(id);
-            return View(donut);
+            AdminUpdateViewModel auvm = new AdminUpdateViewModel()
+            {
+                Donut = donut
+            };
+            return View(auvm);
         }
         /// <summary>
         /// Takes in a donut that has been editted and updated the database.
@@ -94,7 +99,7 @@ namespace DonutShop.Controllers
         {
             if (ModelState.IsValid)
             {
-                await DeleteBlob(donut.ImageUrl);
+                await DeleteBlob(donut.ImageName);
                 string uploadURL = await UploadImageToBlob(Image, donut.ImageName);
                 donut.ImageUrl = uploadURL;
                 await _inventory.Update(donut);
@@ -122,6 +127,8 @@ namespace DonutShop.Controllers
         [HttpPost]
         public async Task<IActionResult> Delete(Donut donut)
         {
+            donut = await _inventory.GetByID(donut.ID);
+            await DeleteBlob(donut.ImageName);
             await _inventory.Delete(donut.ID);
             return RedirectToAction("Index");
         }
@@ -146,6 +153,12 @@ namespace DonutShop.Controllers
 
             return Redirect("~/account/mycart");
         }
+        /// <summary>
+        /// Takes in an image from a form and a filename and uploads the image to the blob.
+        /// </summary>
+        /// <param name="fileUpload">Takes in the file to be uploaded.</param>
+        /// <param name="fileName">Takes in the fileName</param>
+        /// <returns>Returns the URL of the uploaded image.</returns>
         private async Task<string> UploadImageToBlob(IFormFile fileUpload, string fileName)
         {
             //uploads the file
