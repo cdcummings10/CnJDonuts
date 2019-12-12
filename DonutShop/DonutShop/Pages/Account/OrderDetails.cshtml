@@ -1,0 +1,23 @@
+﻿@page "{id}"
+@model DonutShop.Pages.Account.OrderDetailsModel
+@{
+    ViewData["Title"] = "OrderDetails";
+    decimal total = 0;
+}
+
+<h1>Order Details</h1>
+
+<h1>Order Number @Model.CurrentOrder.FirstOrDefault(x => x.OrderID == x.OrderID).OrderID</h1>
+
+@foreach (var item in Model.CurrentOrder)
+{
+    decimal totalPrice = item.Donut.Price * item.Quantity;
+    total += totalPrice;
+    <h5>@item.Donut.Name</h5>
+    <img src="@item.Donut.ImageUrl" />
+    <p>Price per Donut: $@item.Donut.Price</p>
+    <p>Price for All: $@totalPrice</p>
+    <p>Quantity = @item.Quantity</p>
+
+}
+<h5>Total Price: $@total</h5>

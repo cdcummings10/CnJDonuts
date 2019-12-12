@@ -1,0 +1,28 @@
+﻿@page
+@model DonutShop.Pages.Account.MyOrdersModel
+@{
+    ViewData["Title"] = "MyOrders";
+    int counter = 0;
+}
+
+<h1>My Orders</h1>
+
+@foreach (var item in Model.MyOrders)
+{
+    <li>
+        <h5>Order Number: @item.ID  User:@item.Email</h5>
+        @foreach (var orderItem in item.OrderItems)
+        {
+            <p>Item Number: @orderItem.DonutID    Qty: @orderItem.Quantity</p>
+        }
+        <form method="post">
+            <input type="hidden" value="@item.ID" name="OrderID" />
+            <button type="submit">View Order</button>
+        </form>
+    </li>
+    if (counter == 5)
+    {
+        break;
+    }
+    counter++;
+}
