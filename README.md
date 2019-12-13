@@ -1,6 +1,6 @@
 # C&J Donuts
 
-*Authors: Chris Cummings, Jonathan Rice*
+*Author: Chris Cummings*
 
 ----
 
@@ -9,6 +9,7 @@
 ## Description
 This app is a mock E-Commerce store created to familiarize ourselves with
 ASP.NET Core 3.0 and how an e-commerce store would use these tools.
+
 
 ---
 
@@ -22,6 +23,8 @@ Microsoft Visual Studio Community 2019 (Version 16.3.6)
 - SQL Database
 - Entity Framework Core
 - Identity
+- Auth.Net
+- Blob Storage
 
 ---
 
@@ -52,20 +55,16 @@ Email is captured for email and access purposes.
 Admin roles are added through validation of email being @admin.com. Admins have the ability to add, remove or edit
 products in the database. Users should not be allowed to edit the inventory, so that policy is established. 
 
----
-
-### Visuals
-
-TBD
-
 
 ---
 
-
+[Vulnerability Report](https://github.com/cdcummings10/DonutsEcommerceStore/blob/master/vulnerability-report.md)
 
 ### Change Log 
 
 *1.0 Finished sprint 1. 11/25/19*
 
 *1.1 Finished sprint 2. 12/03/19*
+
+*1.2 Finished sprint 3. Vulnerability report added. 12/12/19*
 
