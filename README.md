@@ -58,7 +58,7 @@ products in the database. Users should not be allowed to edit the inventory, so 
 
 ---
 
-[Vulnerability Report](https://github.com/cdcummings10/DonutsEcommerceStore/blob/master/vulnerability-report.md)
+[Vulnerability Report](https://github.com/cdcummings10/CnJDonuts/blob/master/vulnerability-report.md)
 
 ### Change Log 
 
